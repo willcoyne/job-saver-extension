@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<style>
+  :root {
+    --primary: #2e7d32;
+    --primary-dark: #1b5e20;
+    --primary-light: #e8f5e9;
+    --primary-border: #c3e6c8;
+    --primary-ring: rgba(46, 125, 50, 0.28);
+    --bg: #f5f6f8;
+    --surface: #ffffff;
+    --text: #1f2430;
+    --text-secondary: #64707c;
+    --text-muted: #8b95a3;
+    --border: #dde1e6;
+    --border-strong: #c5cbd3;
+    --danger: #c0392b;
+    --danger-bg: #fdecea;
+    --info-bg: #eef1f4;
+    --radius: 9px;
+    --radius-sm: 7px;
+    --shadow-xs: 0 1px 2px rgba(16, 24, 40, 0.06);
+    --shadow-sm: 0 2px 6px rgba(16, 24, 40, 0.08);
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    width: 340px;
+    margin: 0;
+    padding: 16px;
+    background: var(--bg);
+    color: var(--text);
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    font-size: 13px;
+    line-height: 1.45;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ---------- Header ---------- */
+  .header-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 14px;
+  }
+
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+  }
+
+  .brand-mark {
+    width: 26px;
+    height: 26px;
+    flex: none;
+    border-radius: 7px;
+    background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 12px;
+    letter-spacing: 0.01em;
+    box-shadow: var(--shadow-xs);
+  }
+
+  h1 {
+    margin: 0;
+    font-size: 15px;
+    font-weight: 650;
+    letter-spacing: -0.01em;
+    color: var(--text);
+  }
+
+  #settingsLink {
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--text-secondary);
+    text-decoration: none;
+    padding: 5px 9px;
+    border-radius: 6px;
+    transition: background-color 0.15s ease, color 0.15s ease;
+  }
+  #settingsLink:hover { background: var(--primary-light); color: var(--primary-dark); }
+  #settingsLink:focus-visible { outline: 2px solid var(--primary-ring); outline-offset: 2px; }
+
+  /* ---------- Setup notice ---------- */
+  #setupNotice {
+    text-align: center;
+    background: var(--primary-light);
+    border: 1px solid var(--primary-border);
+    border-radius: var(--radius);
+    padding: 14px;
+    margin-bottom: 14px;
+  }
+  #setupNotice p {
+    margin: 0 0 11px;
+    font-size: 12.5px;
+    color: #2c5a35;
+    line-height: 1.55;
+  }
+  #openSettingsBtn {
+    width: auto;
+    display: inline-flex;
+    padding: 8px 18px;
+    background: var(--primary);
+    color: #fff;
+  }
+  #openSettingsBtn:hover { background: var(--primary-dark); }
+
+  /* ---------- Form fields ---------- */
+  .field { margin-bottom: 11px; }
+  .field-row { display: flex; gap: 10px; }
+  .field-row .field { flex: 1; min-width: 0; }
+
+  .field label {
+    display: block;
+    font-size: 10.5px;
+    font-weight: 650;
+    text-transform: uppercase;
+    letter-spacing: 0.045em;
+    color: var(--text-muted);
+    margin-bottom: 5px;
+  }
+
+  input[type="text"],
+  select,
+  textarea {
+    width: 100%;
+    padding: 8px 10px;
+    font-family: inherit;
+    font-size: 13px;
+    color: var(--text);
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+  }
+
+  input[type="text"]:hover,
+  select:hover,
+  textarea:hover {
+    border-color: var(--border-strong);
+  }
+
+  input[type="text"]:focus,
+  select:focus,
+  textarea:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px var(--primary-ring);
+  }
+
+  input[type="text"]::placeholder,
+  textarea::placeholder {
+    color: var(--text-muted);
+  }
+
+  #url {
+    background: #f1f2f4;
+    color: var(--text-secondary);
+    cursor: default;
+  }
+
+  select {
+    appearance: none;
+    -webkit-appearance: none;
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='none'%3E%3Cpath d='M5 7.5l5 5 5-5' stroke='%2364707c' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    background-size: 13px;
+    padding-right: 30px;
+    cursor: pointer;
+  }
+
+  textarea {
+    min-height: 58px;
+    resize: vertical;
+  }
+
+  /* ---------- Buttons ---------- */
+  button {
+    width: 100%;
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 650;
+    border: none;
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    padding: 10px 12px;
+    transition: background-color 0.15s ease, border-color 0.15s ease,
+      box-shadow 0.15s ease, transform 0.05s ease;
+  }
+  button:active { transform: translateY(1px); }
+  button:focus-visible { outline: none; box-shadow: 0 0 0 3px var(--primary-ring); }
+  button:disabled { cursor: not-allowed; opacity: 0.65; transform: none; }
+
+  #rescanBtn {
+    background: var(--surface);
+    color: var(--text-secondary);
+    border: 1px solid var(--border);
+    margin-bottom: 12px;
+    font-weight: 550;
+  }
+  #rescanBtn:hover:not(:disabled) {
+    background: #f0f1f3;
+    border-color: var(--border-strong);
+    color: var(--text);
+  }
+
+  #saveBtn {
+    background: var(--primary);
+    color: #fff;
+    box-shadow: var(--shadow-xs);
+    margin-top: 2px;
+  }
+  #saveBtn:hover:not(:disabled) { background: var(--primary-dark); box-shadow: var(--shadow-sm); }
+
+  /* ---------- Status message ---------- */
+  #statusMsg {
+    margin-top: 10px;
+    font-size: 12.5px;
+    text-align: center;
+    min-height: 16px;
+    border-radius: 6px;
+    transition: background-color 0.15s ease;
+  }
+  #statusMsg:not(:empty) { padding: 8px 10px; }
+  #statusMsg.error { background: var(--danger-bg); color: var(--danger); font-weight: 500; }
+  #statusMsg.info { background: var(--info-bg); color: var(--text-secondary); }
+</style>
+</head>
+<body>
+  <div class="header-row">
+    <div class="brand">
+      <span class="brand-mark">JS</span>
+      <h1>Save Job Posting</h1>
+    </div>
+    <a href="#" id="settingsLink">Settings</a>
+  </div>
+
+  <div id="setupNotice" style="display: none;">
+    <p>No Google Sheet connected yet. Add your Apps Script URL in Settings to start saving jobs.</p>
+    <button id="openSettingsBtn" type="button">Open Settings</button>
+  </div>
+
+  <div id="mainForm">
+    <div class="field">
+      <label for="company">Company</label>
+      <input type="text" id="company" placeholder="Company Name">
+    </div>
+
+    <div class="field">
+      <label for="title">Job Title</label>
+      <input type="text" id="title" placeholder="Job Title">
+    </div>
+
+    <div class="field-row">
+      <div class="field">
+        <label for="location">Location</label>
+        <input type="text" id="location" placeholder="Location">
+      </div>
+    </div>
+
+    <div class="field">
+      <label for="url">Job URL</label>
+      <input type="text" id="url" placeholder="Job URL" readonly>
+    </div>
+
+    <div class="field-row">
+      <div class="field">
+        <label for="status">Status</label>
+        <select id="status">
+          <option value="Need to Apply" selected>Need to Apply</option>
+          <option value="Applied">Applied</option>
+          <option value="Interviewing">Interviewing</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label for="interest">Interest</label>
+        <select id="interest">
+          <option value="High">High</option>
+          <option value="Medium" selected>Medium</option>
+          <option value="Low">Low</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="field">
+      <label for="notes">Notes</label>
+      <textarea id="notes" placeholder="Quick notes (e.g., referral, housing provided)..."></textarea>
+    </div>
+
+    <button id="rescanBtn" type="button">Re-scan Page</button>
+    <button id="saveBtn">Push to Sheet</button>
+    <div id="statusMsg"></div>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>

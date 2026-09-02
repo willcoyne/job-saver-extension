@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<style>
+  :root {
+    --primary: #2e7d32;
+    --primary-dark: #1b5e20;
+    --primary-light: #e8f5e9;
+    --primary-ring: rgba(46, 125, 50, 0.28);
+    --bg: #f5f6f8;
+    --surface: #ffffff;
+    --text: #1f2430;
+    --text-secondary: #64707c;
+    --text-muted: #8b95a3;
+    --border: #dde1e6;
+    --border-strong: #c5cbd3;
+    --danger: #c0392b;
+    --danger-bg: #fdecea;
+    --success-bg: #e8f5e9;
+    --radius: 10px;
+    --radius-sm: 7px;
+    --shadow-xs: 0 1px 2px rgba(16, 24, 40, 0.06);
+    --shadow-sm: 0 4px 14px rgba(16, 24, 40, 0.08);
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    width: 380px;
+    margin: 0;
+    padding: 28px 22px;
+    background: var(--bg);
+    color: var(--text);
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    font-size: 13px;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-sm);
+    padding: 20px;
+  }
+
+  .header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 18px;
+  }
+
+  .brand-mark {
+    width: 28px;
+    height: 28px;
+    flex: none;
+    border-radius: 8px;
+    background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 12px;
+    box-shadow: var(--shadow-xs);
+  }
+
+  h1 {
+    margin: 0;
+    font-size: 16px;
+    font-weight: 650;
+    letter-spacing: -0.01em;
+  }
+
+  h1 small {
+    display: block;
+    margin-top: 1px;
+    font-size: 11.5px;
+    font-weight: 500;
+    color: var(--text-muted);
+    letter-spacing: 0;
+  }
+
+  .field { margin-bottom: 18px; }
+
+  label {
+    display: block;
+    font-size: 12.5px;
+    font-weight: 650;
+    color: var(--text);
+    margin-bottom: 5px;
+  }
+
+  input[type="text"] {
+    width: 100%;
+    padding: 9px 10px;
+    font-family: inherit;
+    font-size: 13px;
+    color: var(--text);
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+  }
+  input[type="text"]:hover { border-color: var(--border-strong); }
+  input[type="text"]:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px var(--primary-ring);
+  }
+  input[type="text"]::placeholder { color: var(--text-muted); }
+
+  p.hint {
+    font-size: 12px;
+    color: var(--text-secondary);
+    margin: 6px 0 0;
+    line-height: 1.55;
+  }
+
+  button {
+    width: 100%;
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 650;
+    border: none;
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    padding: 10px 12px;
+    background: var(--primary);
+    color: #fff;
+    box-shadow: var(--shadow-xs);
+    margin-top: 4px;
+    transition: background-color 0.15s ease, box-shadow 0.15s ease, transform 0.05s ease;
+  }
+  button:hover { background: var(--primary-dark); box-shadow: var(--shadow-sm); }
+  button:active { transform: translateY(1px); }
+  button:focus-visible { outline: none; box-shadow: 0 0 0 3px var(--primary-ring); }
+
+  #status {
+    margin-top: 12px;
+    font-size: 12.5px;
+    text-align: center;
+    min-height: 16px;
+    border-radius: 6px;
+    transition: background-color 0.15s ease;
+  }
+  #status:not(:empty) { padding: 8px 10px; }
+  #status.error { background: var(--danger-bg); color: var(--danger); font-weight: 500; }
+  #status.success { background: var(--success-bg); color: var(--primary-dark); font-weight: 500; }
+</style>
+</head>
+<body>
+  <div class="card">
+    <div class="header">
+      <span class="brand-mark">JS</span>
+      <h1>Settings<small>Quick Job Saver</small></h1>
+    </div>
+
+    <div class="field">
+      <label for="scriptUrl">Destination URL</label>
+      <input type="text" id="scriptUrl" placeholder="https://script.google.com/macros/s/.../exec">
+      <p class="hint">Either a Google Apps Script Web App URL (Deploy &rarr; New deployment &rarr; Web app in your Apps Script project, paste the resulting /exec URL), or a local companion app URL (e.g. http://localhost:5321/api/jobs). Each person sharing this extension should point it at their own destination.</p>
+    </div>
+
+    <div class="field">
+      <label for="secret">Shared Secret (optional)</label>
+      <input type="text" id="secret" placeholder="Only needed if your Apps Script checks a secret">
+      <p class="hint">If you added a secret check in your Apps Script (so random people who find your URL can't write to your sheet), enter the same value here. It's sent with every save as a "secret" field.</p>
+    </div>
+
+    <button id="saveBtn">Save Settings</button>
+    <div id="status"></div>
+  </div>
+
+  <script src="options.js"></script>
+</body>
+</html>
