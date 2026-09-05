@@ -26,11 +26,18 @@ A Chrome extension that seamlessly scrapes job postings from LinkedIn and Handsh
 
 ### 3. Install the Chrome Extension
 Since this extension is loaded locally for now, follow these steps to add it to your browser:
-1. Download this repository to your computer as a `.zip` file and extract it (or clone it using Git).
+1. Download this repository as a `.zip` (**Code > Download ZIP**) and extract it, or clone it with Git.
 2. Open Google Chrome and type `chrome://extensions/` into the URL bar.
 3. Toggle on **Developer mode** in the top right corner.
 4. Click the **Load unpacked** button in the top left.
-5. Select the folder containing the extracted repository files (the folder containing the `manifest.json` file).
+5. Select the folder that **directly contains `manifest.json`**.
+
+> ⚠️ **Getting "Manifest file is missing or unreadable"?**
+> You almost certainly picked the wrong folder. Extracting the ZIP usually creates a
+> *nested* folder — `job-saver-extension-main\job-saver-extension-main\` — and only the
+> **inner** one holds `manifest.json`. Open the folder you are about to select: if you can
+> see `manifest.json`, `popup.html`, and the `icons` folder inside it, that is the right
+> one. If you only see another folder with the same name, double-click into it first.
 
 ### 4. Configure the Extension
 1. Pin the **Quick Job Saver** extension to your Chrome toolbar for easy access.
