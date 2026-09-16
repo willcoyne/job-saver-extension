@@ -1,0 +1,37 @@
+# Publishes a flat ZIP (files at the archive root) on every v* tag.
+#
+# GitHub's own "Download ZIP" nests everything under a top-level folder, and Windows'
+# "Extract All" then wraps that in a second folder of the same name -- so users pick the
+# outer one and Chrome says "Manifest file is missing or unreadable". A flat ZIP extracts
+# to exactly one folder with manifest.json directly inside, which is what Load unpacked
+# needs. `git archive` produces that layout with no prefix.
+#
+# Asset name is kept constant so this link is stable across versions:
+#   https://github.com/willcoyne/job-saver-extension/releases/latest/download/quick-job-saver.zip
+name: Release ZIP
+
+on:
+  push:
+    tags: ['v*']
+
+permissions:
+  contents: write
+
+jobs:
+  zip:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build flat ZIP
+        run: git archive --format=zip --output=quick-job-saver.zip HEAD
+
+      - name: Fail if manifest.json is not at the archive root
+        run: unzip -l quick-job-saver.zip | grep -qE ' manifest\.json$'
+
+      - name: Publish release
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: |
+          gh release create "$GITHUB_REF_NAME" quick-job-saver.zip \
+            --title "$GITHUB_REF_NAME" --generate-notes
