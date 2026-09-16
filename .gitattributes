@@ -1,0 +1,8 @@
+# Keep repo-only files out of the release ZIP built by `git archive` in
+# .github/workflows/release.yml. Users extract that ZIP and point Chrome at it,
+# so it should contain the extension and nothing else.
+#
+# Deliberately no `text`/`eol` rules here: the icons are binary PNGs and Chrome
+# refuses to load the extension if a filter ever mangles them.
+/.github     export-ignore
+/.gitattributes export-ignore

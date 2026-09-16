@@ -59,16 +59,16 @@ The extension isn't on the Chrome Web Store yet, so Chrome loads it from a folde
 **Windows** — open **PowerShell** (Start menu → type `powershell`) and paste this whole line:
 
 ```powershell
-cd $HOME; iwr https://github.com/willcoyne/job-saver-extension/archive/refs/heads/main.zip -OutFile js.zip; Expand-Archive js.zip -DestinationPath . -Force; Remove-Item js.zip; (Resolve-Path .\job-saver-extension-main).Path
+cd $HOME; iwr https://github.com/willcoyne/job-saver-extension/releases/latest/download/quick-job-saver.zip -OutFile js.zip -UseBasicParsing; Expand-Archive js.zip -DestinationPath .\quick-job-saver -Force; Remove-Item js.zip; (Resolve-Path .\quick-job-saver).Path
 ```
 
 **macOS / Linux** — open **Terminal** and paste:
 
 ```bash
-cd ~ && curl -sL https://github.com/willcoyne/job-saver-extension/archive/refs/heads/main.zip -o js.zip && unzip -oq js.zip && rm js.zip && cd job-saver-extension-main && pwd
+cd ~ && curl -sL https://github.com/willcoyne/job-saver-extension/releases/latest/download/quick-job-saver.zip -o js.zip && unzip -oq js.zip -d quick-job-saver && rm js.zip && cd quick-job-saver && pwd
 ```
 
-The last line it prints is the folder path — `C:\Users\you\job-saver-extension-main` on Windows, `/Users/you/job-saver-extension-main` on macOS. Copy it. Then:
+The last line it prints is the folder path — `C:\Users\you\quick-job-saver` on Windows, `/Users/you/quick-job-saver` on macOS. Copy it. Then:
 
 1. Open a new tab and go to `chrome://extensions/`.
 2. Turn on **Developer mode** (toggle, top right).
